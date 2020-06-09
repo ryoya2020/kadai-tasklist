@@ -23,6 +23,9 @@
                     </a>
                 </li>
             </ul>
+            @endif
+            {{-- 投稿一覧 --}}
+            @include('tasks.tasks')
         </div>
     </div>
 @endsection

@@ -85,11 +85,22 @@ class TasksController extends Controller
      */
     public function show($id)
     {
+        $user = \Auth::user();
+        //$task = Task::find($id);
+        // findOrFailを使用して、指定のidのTaskが存在しない場合は404 Not Foundページを表示
         $task = Task::findOrFail($id);
-        
+        if($user->id != $task->user_id){
+            return redirect('/');
+        }
+            
         return view('tasks.show',[
             'tasks'=>$task,
-            ]);
+        ]);
+            /* インデントを揃える
+            return view('tasks.show',[
+                'tasks'=>$task,
+                ]);
+            */
     }
 
     /**
@@ -100,16 +111,23 @@ class TasksController extends Controller
      */
     public function edit($id)
     {
+        $user = \Auth::user();
+        // findOrFailを使用して、指定のidのTaskが存在しない場合は404 Not Foundページを表示
+        // $task = Task::find($id);
         $task = Task::findOrFail($id);
+        if($user->id != $task->user_id){
+            return redirect('/');
+        }
 
         return view('tasks.edit', [
             'task' => $task,
         ]);
+        
     }
 
     /**
      * Update the specified resource in storage.
-     *
+     *git status
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -121,7 +139,10 @@ class TasksController extends Controller
             'content' => 'required|max:50',
         ]);
         
-        $task=Task::findOrFail($id);
+        // =の前後はスペースいれる
+        //$task=Task::findOrFail($id);
+        $task = Task::findOrFail($id);
+        
         // タスクの所有者しか操作できないように
         $user = \Auth::user();
         if($user->id != $task->user_id){
