@@ -4,6 +4,7 @@
 
     <h1>タスクリスト</h1>
 
+
     @if (count($tasks) > 0)
         <table class="table table-striped">
             <thead>

@@ -15,10 +15,8 @@
                 </div>
             </aside>
             <div class="col-sm-8">
-                {{-- 投稿 --}}
-                @include('tasks.form')
-                {{-- 投稿一覧 --}}
-                @include('tasks.tasks')
+                {{-- 投稿リスト --}}
+                @include('tasks.index')
             </div>
         </div>
     @else

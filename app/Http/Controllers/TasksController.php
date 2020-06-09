@@ -72,7 +72,7 @@ class TasksController extends Controller
         */
         
          // 前のURLへリダイレクトさせる
-        return back();
+        return redirect('/');
         
         
     }
@@ -88,7 +88,7 @@ class TasksController extends Controller
         $task = Task::findOrFail($id);
         
         return view('tasks.show',[
-            'task'=>$task,
+            'tasks'=>$task,
             ]);
     }
 
@@ -123,7 +123,7 @@ class TasksController extends Controller
         
         $task=Task::findOrFail($id);
         // タスクの所有者しか操作できないように
-        $user = Auth::user();
+        $user = \Auth::user();
         if($user->id != $task->user_id){
             return redirect('/tasks');
         }
